@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý khóa học</title>
+    <style>
+        .center {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .container {
+            padding: 16px;
+        }
+        .header {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>SmartStudy</h1>
+</div>
+
+<div class="center">
+    <form id="loginForm" style="display: block;">
+        <div class="container">
+            <label for="username"><b>Tên đăng nhập</b></label>
+            <input type="text" placeholder="Nhập tên đăng nhập" name="username" required>
+
+            <label for="password"><b>Mật khẩu</b></label>
+            <input type="password" placeholder="Nhập mật khẩu" name="password" required>
+
+            <button type="submit">Đăng nhập</button>
+            <button type="button" onclick="displayCreateAccountForm()">Tạo tài khoản mới</button>
+        </div>
+    </form>
+
+    <form id="createAccountForm" style="display: none;">
+        <div class="container">
+            <label for="newUsername"><b>Tên đăng nhập mới</b></label>
+            <input type="text" placeholder="Nhập tên đăng nhập mới" name="newUsername" required>
+
+            <label for="newPassword"><b>Mật khẩu mới</b></label>
+            <input type="password" placeholder="Nhập mật khẩu mới" name="newPassword" required>
+
+            <button type="submit">Tạo tài khoản</button>
+            <button type="button" onclick="displayLoginForm()">Quay lại đăng nhập</button>
+        </div>
+    </form>
+
+    <div id="userProfile" style="display: none;">
+        <div class="container">
+            <h2>Thông tin cá nhân</h2>
+            <p>Xin chào, <span id="username"></span>!</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function displayCreateAccountForm() {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("createAccountForm").style.display = "block";
+    }
+
+    function displayLoginForm() {
+        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("createAccountForm").style.display = "none";
+    }
+
+    function displayUserProfile(username) {
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("createAccountForm").style.display = "none";
+        document.getElementById("userProfile").style.display = "block";
+        document.getElementById("username").innerHTML = username;
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); 
+        var username = document.getElementsByName("username")[0].value;
+        var password = document.getElementsByName("password")[0].value;
+        if (username === "admin" && password === "admin") {
+            displayUserProfile(username);
+        } else {
+            alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+        }
+    });
+
+    document.getElementById("createAccountForm").addEventListener("submit", function(event) {
+        event.preventDefault(); 
+        var newUsername = document.getElementsByName("newUsername")[0].value;
+        var newPassword = document.getElementsByName("newPassword")[0].value;
+        alert("Tài khoản mới đã được tạo thành công!");
+        displayLoginForm();
+    });
+</script>
+
+</body>
+</html>
